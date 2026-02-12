@@ -1,31 +1,31 @@
 [
   {
-    "id": "category-1",
+    "id": "category-flagship",
     "name": "Flagship",
     "slug": "flagship"
   },
   {
-    "id": "category-2",
+    "id": "category-midrange",
     "name": "Midrange",
     "slug": "midrange"
   },
   {
-    "id": "category-3",
+    "id": "category-budget",
     "name": "Budget",
     "slug": "budget"
   },
   {
-    "id": "category-4",
+    "id": "category-gaming",
     "name": "Gaming",
     "slug": "gaming"
   },
   {
-    "id": "category-5",
+    "id": "category-compact",
     "name": "Compact",
     "slug": "compact"
   },
   {
-    "id": "category-6",
+    "id": "category-foldable",
     "name": "Foldable",
     "slug": "foldable"
   }

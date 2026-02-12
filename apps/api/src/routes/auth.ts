@@ -92,7 +92,7 @@ router.post("/logout", (_req, res) => {
 router.patch(
   "/password",
   authRequired,
-  validate(ChangePasswordSchema.strict(), (req) => req.body),
+  validate(ChangePasswordSchema, (req) => req.body),
   async (req, res) => {
     if (!req.userId) {
       return res.status(401).json({ message: "Unauthorized" });

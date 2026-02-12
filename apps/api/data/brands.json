@@ -1,77 +1,140 @@
 [
   {
-    "id": "brand-1",
+    "id": "brand-alcatel",
+    "name": "Alcatel",
+    "slug": "alcatel",
+    "logoUrl": "/images/brands/alcatel.svg"
+  },
+  {
+    "id": "brand-apple",
     "name": "Apple",
-    "slug": "apple"
+    "slug": "apple",
+    "logoUrl": "/images/brands/apple.svg"
   },
   {
-    "id": "brand-2",
-    "name": "Samsung",
-    "slug": "samsung"
+    "id": "brand-fairphone",
+    "name": "Fairphone",
+    "slug": "fairphone",
+    "logoUrl": "/images/brands/fairphone.svg"
   },
   {
-    "id": "brand-3",
-    "name": "Xiaomi",
-    "slug": "xiaomi"
-  },
-  {
-    "id": "brand-4",
+    "id": "brand-google",
     "name": "Google",
-    "slug": "google"
+    "slug": "google",
+    "logoUrl": "/images/brands/google.svg"
   },
   {
-    "id": "brand-5",
-    "name": "OnePlus",
-    "slug": "oneplus"
-  },
-  {
-    "id": "brand-6",
-    "name": "Huawei",
-    "slug": "huawei"
-  },
-  {
-    "id": "brand-7",
+    "id": "brand-honor",
     "name": "Honor",
-    "slug": "honor"
+    "slug": "honor",
+    "logoUrl": "/images/brands/honor.svg"
   },
   {
-    "id": "brand-8",
-    "name": "Realme",
-    "slug": "realme"
+    "id": "brand-htc",
+    "name": "HTC",
+    "slug": "htc",
+    "logoUrl": "/images/brands/htc.svg"
   },
   {
-    "id": "brand-9",
+    "id": "brand-huawei",
+    "name": "Huawei",
+    "slug": "huawei",
+    "logoUrl": "/images/brands/huawei.svg"
+  },
+  {
+    "id": "brand-iqoo",
+    "name": "iQOO",
+    "slug": "iqoo",
+    "logoUrl": "/images/brands/iqoo.svg"
+  },
+  {
+    "id": "brand-lg",
+    "name": "LG",
+    "slug": "lg",
+    "logoUrl": "/images/brands/lg.svg"
+  },
+  {
+    "id": "brand-motorola",
     "name": "Motorola",
-    "slug": "motorola"
+    "slug": "motorola",
+    "logoUrl": "/images/brands/motorola.svg"
   },
   {
-    "id": "brand-10",
-    "name": "Sony",
-    "slug": "sony"
-  },
-  {
-    "id": "brand-11",
-    "name": "Nokia",
-    "slug": "nokia"
-  },
-  {
-    "id": "brand-12",
-    "name": "Asus",
-    "slug": "asus"
-  },
-  {
-    "id": "brand-13",
+    "id": "brand-nothing",
     "name": "Nothing",
-    "slug": "nothing"
+    "slug": "nothing",
+    "logoUrl": "/images/brands/nothing.svg"
   },
   {
-    "id": "brand-14",
-    "name": "Infinix",
-    "slug": "infinix"
+    "id": "brand-nubia",
+    "name": "Nubia",
+    "slug": "nubia",
+    "logoUrl": "/images/brands/nubia.svg"
   },
   {
-    "id": "brand-15",
+    "id": "brand-oneplus",
+    "name": "OnePlus",
+    "slug": "oneplus",
+    "logoUrl": "/images/brands/oneplus.svg"
+  },
+  {
+    "id": "brand-oppo",
+    "name": "Oppo",
+    "slug": "oppo",
+    "logoUrl": "/images/brands/oppo.svg"
+  },
+  {
+    "id": "brand-poco",
+    "name": "Poco",
+    "slug": "poco",
+    "logoUrl": "/images/brands/poco.svg"
+  },
+  {
+    "id": "brand-realme",
+    "name": "Realme",
+    "slug": "realme",
+    "logoUrl": "/images/brands/realme.svg"
+  },
+  {
+    "id": "brand-redmi",
+    "name": "Redmi",
+    "slug": "redmi",
+    "logoUrl": "/images/brands/redmi.svg"
+  },
+  {
+    "id": "brand-samsung",
+    "name": "Samsung",
+    "slug": "samsung",
+    "logoUrl": "/images/brands/samsung.svg"
+  },
+  {
+    "id": "brand-tcl",
+    "name": "TCL",
+    "slug": "tcl",
+    "logoUrl": "/images/brands/tcl.svg"
+  },
+  {
+    "id": "brand-tecno",
     "name": "Tecno",
-    "slug": "tecno"
+    "slug": "tecno",
+    "logoUrl": "/images/brands/tecno.svg"
+  },
+  {
+    "id": "brand-vivo",
+    "name": "Vivo",
+    "slug": "vivo",
+    "logoUrl": "/images/brands/vivo.svg"
+  },
+  {
+    "id": "brand-xiaomi",
+    "name": "Xiaomi",
+    "slug": "xiaomi",
+    "logoUrl": "/images/brands/xiaomi.svg"
+  },
+  {
+    "id": "brand-zte",
+    "name": "ZTE",
+    "slug": "zte",
+    "logoUrl": "/images/brands/zte.svg"
   }
 ]

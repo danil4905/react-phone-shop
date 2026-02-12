@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 420" fill="none">
+  <g transform="translate(120,60)">
+    <path d="M110 280 L70 120 L150 120 Z"
+          fill="#2F3B46"/>
+    <rect x="90" y="40" width="180" height="260" rx="26"
+          fill="#2F3B46"/>
+
+    <rect x="108" y="70" width="144" height="190" rx="18"
+          fill="url(#screenGradient)"/>
+    <rect x="150" y="58" width="60" height="10" rx="5"
+          fill="#1E262D"/>
+    <circle cx="180" cy="280" r="14"
+            fill="#DDE3E8"/>
+  </g>
+  <text x="360" y="220"
+        font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial"
+        font-size="82"
+        font-weight="600"
+        letter-spacing="-1"
+        fill="#1E262D">
+    Gadget<tspan fill="#3BC0D6">Shop</tspan>
+  </text>
+  <text x="365" y="285"
+        font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial"
+        font-size="38"
+        font-weight="400"
+        fill="#9CA3AF">
+    Smart tech for smart life
+  </text>
+  <defs>
+    <linearGradient id="screenGradient" x1="0" y1="0" x2="200" y2="260" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#59D6E8"/>
+      <stop offset="100%" stop-color="#2BB7D3"/>
+    </linearGradient>
+  </defs>
+</svg>

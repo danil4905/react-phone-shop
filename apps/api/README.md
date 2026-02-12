@@ -21,3 +21,19 @@ npm run --prefix apps/api dev
 ```
 
 API runs on `http://localhost:4000`.
+
+## Import real phones dataset (2025)
+
+1. Download the CSV dataset and save it to:
+
+```
+apps/api/data/mobiles-2025.csv
+```
+
+2. Run the importer:
+
+```bash
+npm run --prefix apps/api import:2025
+```
+
+This will overwrite `brands.json`, `categories.json`, and `phones.json`.
