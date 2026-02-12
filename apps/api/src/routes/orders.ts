@@ -1,9 +1,10 @@
 import { Router } from "express";
 import { randomUUID } from "node:crypto";
-import type { Order, Phone } from "@repo/shared";
+import { z } from "zod";
 import { CreateOrderSchema } from "@repo/shared";
-import { readJsonFile, writeJsonFile } from "../db/files";
+import { getOrders, getPhones, saveOrders } from "../db/store";
 import { authRequired } from "../middleware/auth";
+import { validate } from "../middleware/validate";
 
 const router = Router();
 
@@ -11,24 +12,20 @@ router.get("/", authRequired, async (req, res) => {
   if (!req.userId) {
     return res.status(401).json({ message: "Unauthorized" });
   }
-  const orders = await readJsonFile<Order[]>("orders.json", []);
+  const orders = await getOrders();
   const userOrders = orders.filter((order) => order.userId === req.userId);
   return res.json(userOrders);
 });
 
-router.post("/", authRequired, async (req, res) => {
+router.post("/", authRequired, validate(CreateOrderSchema.strict(), (req) => req.body), async (req, res) => {
   if (!req.userId) {
     return res.status(401).json({ message: "Unauthorized" });
   }
-  const parsed = CreateOrderSchema.safeParse(req.body);
-  if (!parsed.success) {
-    return res.status(400).json({ message: "Invalid input", issues: parsed.error.issues });
-  }
-
-  const phones = await readJsonFile<Phone[]>("phones.json", []);
+  const { items } = req.validated as z.infer<typeof CreateOrderSchema>;
+  const phones = await getPhones();
   const phoneMap = new Map(phones.map((phone) => [phone.id, phone]));
 
-  const items = parsed.data.items.map((item) => {
+  const lines = items.map((item) => {
     const phone = phoneMap.get(item.phoneId);
     if (!phone) {
       return null;
@@ -46,11 +43,11 @@ router.post("/", authRequired, async (req, res) => {
     };
   });
 
-  if (items.some((item) => item === null)) {
+  if (lines.some((item) => item === null)) {
     return res.status(400).json({ message: "One or more items are invalid" });
   }
 
-  const normalizedItems = items as NonNullable<(typeof items)[number]>[];
+  const normalizedItems = lines as NonNullable<(typeof lines)[number]>[];
   const total = normalizedItems.reduce((sum, item) => sum + item.lineTotal, 0);
 
   const order: Order = {
@@ -61,9 +58,9 @@ router.post("/", authRequired, async (req, res) => {
     createdAt: new Date().toISOString(),
   };
 
-  const orders = await readJsonFile<Order[]>("orders.json", []);
+  const orders = await getOrders();
   orders.push(order);
-  await writeJsonFile("orders.json", orders);
+  await saveOrders(orders);
 
   return res.status(201).json(order);
 });

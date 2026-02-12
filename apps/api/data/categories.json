@@ -1,1 +1,32 @@
-[]
+[
+  {
+    "id": "category-1",
+    "name": "Flagship",
+    "slug": "flagship"
+  },
+  {
+    "id": "category-2",
+    "name": "Midrange",
+    "slug": "midrange"
+  },
+  {
+    "id": "category-3",
+    "name": "Budget",
+    "slug": "budget"
+  },
+  {
+    "id": "category-4",
+    "name": "Gaming",
+    "slug": "gaming"
+  },
+  {
+    "id": "category-5",
+    "name": "Compact",
+    "slug": "compact"
+  },
+  {
+    "id": "category-6",
+    "name": "Foldable",
+    "slug": "foldable"
+  }
+]

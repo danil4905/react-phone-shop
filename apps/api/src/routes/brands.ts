@@ -1,11 +1,10 @@
 import { Router } from "express";
-import type { Brand } from "@repo/shared";
-import { readJsonFile } from "../db/files";
+import { getBrands } from "../db/store";
 
 const router = Router();
 
 router.get("/", async (_req, res) => {
-  const brands = await readJsonFile<Brand[]>("brands.json", []);
+  const brands = await getBrands();
   return res.json(brands);
 });
 

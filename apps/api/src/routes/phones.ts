@@ -1,38 +1,48 @@
 import { Router } from "express";
 import { z } from "zod";
-import type { Phone } from "@repo/shared";
-import { readJsonFile } from "../db/files";
+import { getPhones } from "../db/store";
+import { validate } from "../middleware/validate";
 import { parseNumberList, parseStringList } from "../utils/query";
 
 const router = Router();
 
-const querySchema = z.object({
-  q: z.string().optional(),
-  brand: z.union([z.string(), z.array(z.string())]).optional(),
-  category: z.union([z.string(), z.array(z.string())]).optional(),
-  priceMin: z.coerce.number().optional(),
-  priceMax: z.coerce.number().optional(),
-  ram: z.union([z.string(), z.array(z.string())]).optional(),
-  storage: z.union([z.string(), z.array(z.string())]).optional(),
-  page: z.coerce.number().min(1).default(1),
-  limit: z.coerce.number().min(1).max(50).default(20),
-  sort: z.enum(["price-asc", "price-desc", "rating-desc", "newest"]).optional(),
-});
+const querySchema = z
+  .object({
+    q: z.string().optional(),
+    brand: z.union([z.string(), z.array(z.string())]).optional(),
+    category: z.union([z.string(), z.array(z.string())]).optional(),
+    priceMin: z.coerce.number().optional(),
+    priceMax: z.coerce.number().optional(),
+    ram: z.union([z.string(), z.array(z.string())]).optional(),
+    storage: z.union([z.string(), z.array(z.string())]).optional(),
+    page: z.coerce.number().min(1).default(1),
+    limit: z.coerce.number().min(1).max(50).default(20),
+    sort: z.enum(["price-asc", "price-desc", "rating-desc", "newest"]).optional(),
+  })
+  .strict()
+  .superRefine((data, ctx) => {
+    if (typeof data.priceMin === "number" && typeof data.priceMax === "number") {
+      if (data.priceMin > data.priceMax) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "priceMin must be <= priceMax",
+        });
+      }
+    }
+  });
 
-router.get("/", async (req, res) => {
-  const parsed = querySchema.safeParse(req.query);
-  if (!parsed.success) {
-    return res.status(400).json({ message: "Invalid query", issues: parsed.error.issues });
-  }
+const paramsSchema = z.object({ id: z.string().min(1) }).strict();
 
-  const { q, brand, category, priceMin, priceMax, ram, storage, page, limit, sort } = parsed.data;
+router.get("/", validate(querySchema, (req) => req.query), async (req, res) => {
+  const { q, brand, category, priceMin, priceMax, ram, storage, page, limit, sort } =
+    req.validated as z.infer<typeof querySchema>;
 
   const brands = parseStringList(brand);
   const categories = parseStringList(category);
   const rams = parseNumberList(ram);
   const storages = parseNumberList(storage);
 
-  let phones = await readJsonFile<Phone[]>("phones.json", []);
+  let phones = await getPhones();
 
   if (q) {
     const term = q.toLowerCase();
@@ -99,9 +109,10 @@ router.get("/", async (req, res) => {
   });
 });
 
-router.get("/:id", async (req, res) => {
-  const phones = await readJsonFile<Phone[]>("phones.json", []);
-  const phone = phones.find((item) => item.id === req.params.id);
+router.get("/:id", validate(paramsSchema, (req) => req.params), async (req, res) => {
+  const { id } = req.validated as z.infer<typeof paramsSchema>;
+  const phones = await getPhones();
+  const phone = phones.find((item) => item.id === id);
 
   if (!phone) {
     return res.status(404).json({ message: "Phone not found" });

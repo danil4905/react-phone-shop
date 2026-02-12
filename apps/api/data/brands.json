@@ -1,1 +1,77 @@
-[]
+[
+  {
+    "id": "brand-1",
+    "name": "Apple",
+    "slug": "apple"
+  },
+  {
+    "id": "brand-2",
+    "name": "Samsung",
+    "slug": "samsung"
+  },
+  {
+    "id": "brand-3",
+    "name": "Xiaomi",
+    "slug": "xiaomi"
+  },
+  {
+    "id": "brand-4",
+    "name": "Google",
+    "slug": "google"
+  },
+  {
+    "id": "brand-5",
+    "name": "OnePlus",
+    "slug": "oneplus"
+  },
+  {
+    "id": "brand-6",
+    "name": "Huawei",
+    "slug": "huawei"
+  },
+  {
+    "id": "brand-7",
+    "name": "Honor",
+    "slug": "honor"
+  },
+  {
+    "id": "brand-8",
+    "name": "Realme",
+    "slug": "realme"
+  },
+  {
+    "id": "brand-9",
+    "name": "Motorola",
+    "slug": "motorola"
+  },
+  {
+    "id": "brand-10",
+    "name": "Sony",
+    "slug": "sony"
+  },
+  {
+    "id": "brand-11",
+    "name": "Nokia",
+    "slug": "nokia"
+  },
+  {
+    "id": "brand-12",
+    "name": "Asus",
+    "slug": "asus"
+  },
+  {
+    "id": "brand-13",
+    "name": "Nothing",
+    "slug": "nothing"
+  },
+  {
+    "id": "brand-14",
+    "name": "Infinix",
+    "slug": "infinix"
+  },
+  {
+    "id": "brand-15",
+    "name": "Tecno",
+    "slug": "tecno"
+  }
+]

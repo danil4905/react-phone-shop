@@ -5,6 +5,7 @@ import categories from "./categories";
 import filters from "./filters";
 import auth from "./auth";
 import orders from "./orders";
+import users from "./users";
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use("/categories", categories);
 router.use("/filters", filters);
 router.use("/auth", auth);
 router.use("/orders", orders);
+router.use("/users", users);
 
 export default router;

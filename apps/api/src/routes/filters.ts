@@ -1,13 +1,13 @@
 import { Router } from "express";
-import type { Brand, Category, Filters, Phone } from "@repo/shared";
-import { readJsonFile } from "../db/files";
+import type { Filters } from "@repo/shared";
+import { getBrands, getCategories, getPhones } from "../db/store";
 
 const router = Router();
 
 router.get("/", async (_req, res) => {
-  const phones = await readJsonFile<Phone[]>("phones.json", []);
-  const brands = await readJsonFile<Brand[]>("brands.json", []);
-  const categories = await readJsonFile<Category[]>("categories.json", []);
+  const phones = await getPhones();
+  const brands = await getBrands();
+  const categories = await getCategories();
 
   const prices = phones.map((phone) => phone.price);
   const minPrice = prices.length ? Math.min(...prices) : 0;

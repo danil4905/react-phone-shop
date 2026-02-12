@@ -83,6 +83,9 @@ export const UserSchema = z.object({
   id: z.string(),
   email: z.string().email(),
   name: z.string().optional(),
+  lastName: z.string().optional(),
+  avatarUrl: z.string().optional(),
+  about: z.string().max(500).optional(),
   passwordHash: z.string(),
 });
 
@@ -100,9 +103,37 @@ export type AuthCredentials = z.infer<typeof AuthCredentialsSchema>;
 
 export const RegisterSchema = AuthCredentialsSchema.extend({
   name: z.string().min(2).max(50).optional(),
+  lastName: z.string().min(2).max(50).optional(),
 });
 
 export type RegisterInput = z.infer<typeof RegisterSchema>;
+
+export const UpdateProfileSchema = z
+  .object({
+    name: z.string().min(2).max(50).optional(),
+    lastName: z.string().min(2).max(50).optional(),
+    email: z.string().email().optional(),
+    avatarUrl: z.string().min(1).optional(),
+    about: z.string().max(500).optional(),
+  })
+  .strict()
+  .refine((data) => Object.keys(data).length > 0, {
+    message: "At least one field must be provided",
+  });
+
+export type UpdateProfileInput = z.infer<typeof UpdateProfileSchema>;
+
+export const ChangePasswordSchema = z
+  .object({
+    currentPassword: z.string().min(6),
+    newPassword: z.string().min(6),
+  })
+  .strict()
+  .refine((data) => data.currentPassword !== data.newPassword, {
+    message: "New password must be different",
+  });
+
+export type ChangePasswordInput = z.infer<typeof ChangePasswordSchema>;
 
 export const FiltersSchema = z.object({
   price: z.object({
