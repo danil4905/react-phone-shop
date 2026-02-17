@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={geistSans.variable}>
         <AuthBootstrap />
         <Header links={PUBLIC_LINKS} />
-        <main className="pt-14">{children}</main>
+        <main className="pt-14 h-lvh">{children}</main>
       </body>
     </html>
   );
