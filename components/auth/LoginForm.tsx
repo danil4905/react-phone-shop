@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthCredentialsSchema, type AuthCredentials, type UserPublic } from "@repo/shared";
 import { ROUTES } from "@/config/routes";
 import { useAuthStore } from "@/store/auth";
+import Button from "../ui/Button";
 
 type LoginSuccessResponse = {
   user: UserPublic;
@@ -152,13 +153,13 @@ export default function LoginForm() {
         </p>
       )}
 
-      <button
+      <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full rounded-xl bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-xl bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isSubmitting ? "Signing in..." : "Login"}
-      </button>
+      </Button>
 
       <p className="text-center text-sm text-zinc-500">
         No account yet?{" "}

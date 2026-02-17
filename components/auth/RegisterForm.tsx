@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema, type RegisterInput, type UserPublic } from "@repo/shared";
 import { ROUTES } from "@/config/routes";
 import { useAuthStore } from "@/store/auth";
+import Button from "../ui/Button";
 
 const RegisterFormSchema = RegisterSchema.extend({
   confirmPassword: RegisterSchema.shape.password,
@@ -34,7 +35,7 @@ type RegisterErrorResponse = {
   issues?: ApiIssue[];
 };
 
-const INPUT_CLASSNAME =
+export const INPUT_CLASSNAME =
   "mt-1 w-full rounded-xl border border-zinc-200 bg-white px-3 py-2 text-sm outline-none transition focus:border-zinc-400 focus:ring-2 focus:ring-zinc-200";
 
 export default function RegisterForm() {
@@ -220,13 +221,13 @@ export default function RegisterForm() {
         </p>
       )}
 
-      <button
+      <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full rounded-xl bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 disabled:cursor-not-allowed disabled:opacity-60"
+        className="w-full rounded-xl bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
       >
         {isSubmitting ? "Creating account..." : "Create account"}
-      </button>
+      </Button>
 
       <p className="text-center text-sm text-zinc-500">
         Already have an account?{" "}
