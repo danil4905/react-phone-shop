@@ -4,5 +4,12 @@
     "email": "demo@example.com",
     "name": "Demo User",
     "passwordHash": "$2a$10$d6mXlFiUgV1tnEiOlckolu605I0ith6yOLroEAkFaGxSzUQjLsGBy"
+  },
+  {
+    "id": "28dded8f-cb5f-4da5-9173-52fc18e1c11b",
+    "email": "test@mail.ru",
+    "name": "Danil",
+    "lastName": "Konovalov",
+    "passwordHash": "$2a$10$16xbgh7smIfo1oFB1B3KFO/Tj/iRjMoJxHCeBLVHWIVoJssJ782cy"
   }
 ]

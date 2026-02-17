@@ -14,6 +14,7 @@ type AuthActions = {
   setCsrfToken: (token: string | null) => void;
   hydrateFromSession: (payload: { user: UserPublic; csrfToken?: string | null }) => void;
   logoutLocal: () => void;
+  logout: () => Promise<void>;
 };
 
 export type AuthStore = AuthState & AuthActions;
@@ -24,7 +25,7 @@ const initialState: AuthState = {
   csrfToken: null,
 };
 
-export const useAuthStore = create<AuthStore>()((set) => ({
+export const useAuthStore = create<AuthStore>()((set, get) => ({
   ...initialState,
 
   setUser: (user) => {
@@ -49,5 +50,19 @@ export const useAuthStore = create<AuthStore>()((set) => ({
       user: null,
       csrfToken: null,
     });
+  },
+
+  logout: async () => {
+    const { csrfToken } = get();
+
+    try {
+      await fetch("/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+        headers: csrfToken ? { "x-csrf-token": csrfToken } : undefined,
+      });
+    } finally {
+      get().logoutLocal();
+    }
   },
 }));

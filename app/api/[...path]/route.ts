@@ -47,26 +47,30 @@ async function proxy(request: NextRequest, params: { path: string[] }) {
   });
 }
 
-export async function GET(request: NextRequest, context: { params: { path: string[] } }) {
-  return proxy(request, context.params);
+type RouteContext = {
+  params: Promise<{ path: string[] }>;
+};
+
+export async function GET(request: NextRequest, context: RouteContext) {
+  return proxy(request, await context.params);
 }
 
-export async function POST(request: NextRequest, context: { params: { path: string[] } }) {
-  return proxy(request, context.params);
+export async function POST(request: NextRequest, context: RouteContext) {
+  return proxy(request, await context.params);
 }
 
-export async function PUT(request: NextRequest, context: { params: { path: string[] } }) {
-  return proxy(request, context.params);
+export async function PUT(request: NextRequest, context: RouteContext) {
+  return proxy(request, await context.params);
 }
 
-export async function PATCH(request: NextRequest, context: { params: { path: string[] } }) {
-  return proxy(request, context.params);
+export async function PATCH(request: NextRequest, context: RouteContext) {
+  return proxy(request, await context.params);
 }
 
-export async function DELETE(request: NextRequest, context: { params: { path: string[] } }) {
-  return proxy(request, context.params);
+export async function DELETE(request: NextRequest, context: RouteContext) {
+  return proxy(request, await context.params);
 }
 
-export async function OPTIONS(request: NextRequest, context: { params: { path: string[] } }) {
-  return proxy(request, context.params);
+export async function OPTIONS(request: NextRequest, context: RouteContext) {
+  return proxy(request, await context.params);
 }
