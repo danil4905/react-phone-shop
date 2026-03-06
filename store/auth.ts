@@ -1,5 +1,6 @@
-import { create } from "zustand";
+import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { UserPublic } from "@repo/shared";
+import type { RootState } from "./index";
 
 export type AuthStatus = "unknown" | "guest" | "auth";
 
@@ -9,51 +10,43 @@ type AuthState = {
   csrfToken: string | null;
 };
 
-type AuthActions = {
-  setUser: (user: UserPublic) => void;
-  setCsrfToken: (token: string | null) => void;
-  hydrateFromSession: (payload: { user: UserPublic; csrfToken?: string | null }) => void;
-  logoutLocal: () => void;
-  logout: () => Promise<void>;
-};
-
-export type AuthStore = AuthState & AuthActions;
-
 const initialState: AuthState = {
   status: "unknown",
   user: null,
   csrfToken: null,
 };
 
-export const useAuthStore = create<AuthStore>()((set, get) => ({
-  ...initialState,
-
-  setUser: (user) => {
-    set({ user, status: "auth" });
+const authSlice = createSlice({
+  name: "auth",
+  initialState,
+  reducers: {
+    setUser: (state, action: PayloadAction<UserPublic>) => {
+      state.user = action.payload;
+      state.status = "auth";
+    },
+    setCsrfToken: (state, action: PayloadAction<string | null>) => {
+      state.csrfToken = action.payload;
+    },
+    hydrateFromSession: (
+      state,
+      action: PayloadAction<{ user: UserPublic; csrfToken?: string | null }>
+    ) => {
+      state.user = action.payload.user;
+      state.status = "auth";
+      state.csrfToken = action.payload.csrfToken ?? null;
+    },
+    logoutLocal: (state) => {
+      state.status = "guest";
+      state.user = null;
+      state.csrfToken = null;
+    },
   },
+});
 
-  setCsrfToken: (token) => {
-    set({ csrfToken: token });
-  },
-
-  hydrateFromSession: ({ user, csrfToken }) => {
-    set({
-      user,
-      status: "auth",
-      csrfToken: csrfToken ?? null,
-    });
-  },
-
-  logoutLocal: () => {
-    set({
-      status: "guest",
-      user: null,
-      csrfToken: null,
-    });
-  },
-
-  logout: async () => {
-    const { csrfToken } = get();
+export const logout = createAsyncThunk<void, void, { state: RootState }>(
+  "auth/logout",
+  async (_, { getState, dispatch }) => {
+    const { csrfToken } = getState().auth;
 
     try {
       await fetch("/api/auth/logout", {
@@ -62,7 +55,15 @@ export const useAuthStore = create<AuthStore>()((set, get) => ({
         headers: csrfToken ? { "x-csrf-token": csrfToken } : undefined,
       });
     } finally {
-      get().logoutLocal();
+      dispatch(logoutLocal());
     }
-  },
-}));
+  }
+);
+
+export const { setUser, setCsrfToken, hydrateFromSession, logoutLocal } = authSlice.actions;
+
+export const selectAuthStatus = (state: RootState) => state.auth.status;
+export const selectAuthUser = (state: RootState) => state.auth.user;
+export const selectAuthCsrfToken = (state: RootState) => state.auth.csrfToken;
+
+export default authSlice.reducer;

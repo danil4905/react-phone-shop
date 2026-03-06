@@ -1,7 +1,8 @@
 'use client';
 
 import { ROUTES } from "@/config/routes";
-import { useAuthStore } from "@/store/auth";
+import { logout, selectAuthStatus, selectAuthUser } from "@/store/auth";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { HeaderLink } from "./HeaderLink";
 import HeaderAuthInfo from "./HeaderAuthInfo";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -10,9 +11,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 export default function HeaderAuth() {
-  const user = useAuthStore((s) => s.user);
-  const status = useAuthStore((s) => s.status);
-  const logout = useAuthStore((s) => s.logout);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector(selectAuthUser);
+  const status = useAppSelector(selectAuthStatus);
   const router = useRouter();
 
   if (status === "unknown") {
@@ -48,7 +49,7 @@ export default function HeaderAuth() {
             onClick={async () => {
               close();
               try {
-                await logout();
+                await dispatch(logout()).unwrap();
               } finally {
                 router.push(ROUTES.home);
                 router.refresh();

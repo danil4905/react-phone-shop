@@ -2,40 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Phone } from "@repo/shared";
 import { ROUTES } from "@/config/routes";
-
-const placeholderImage = "/api/images/phone-placeholder.svg"
+import { getPhoneImageSrc } from "@/lib/media/get-phone-image-src";
+import { formatPrice } from "@/lib/format/format-price";
 
 type PhoneCardProps = {
   phone: Phone;
 };
-
-function getPhoneImageSrc(imageUrl?: string) {
-  if (!imageUrl) {
-    return placeholderImage;
-  }
-
-  if (
-    imageUrl.startsWith("http://") ||
-    imageUrl.startsWith("https://") ||
-    imageUrl.startsWith("/api/")
-  ) {
-    return imageUrl;
-  }
-
-  if (imageUrl.startsWith("/images/")) {
-    return `/api${imageUrl}`;
-  }
-
-  return placeholderImage;
-}
-
-function formatPrice(price: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(price);
-}
 
 export default function PhoneCard({ phone }: PhoneCardProps) {
   const inStock = phone.stock > 0;

@@ -1,4 +1,3 @@
-import PhoneCard from "@/components/phones/PhoneCard";
 import PhonesList from "@/components/phones/PhonesList";
 import type { PaginatedResult, Phone } from "@repo/shared";
 import { headers } from "next/headers";

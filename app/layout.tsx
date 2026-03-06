@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/layouts/header/Header";
 import { PUBLIC_LINKS } from "@/config/navigation";
 import { AuthBootstrap } from "@/components/auth/AuthBootstrap";
+import ReduxProvider from "@/components/providers/ReduxProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -22,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={geistSans.variable}>
-        <AuthBootstrap />
-        <Header links={PUBLIC_LINKS} />
-        <main className="pt-14 h-lvh">{children}</main>
+        <ReduxProvider>
+          <AuthBootstrap />
+          <Header links={PUBLIC_LINKS} />
+          <main className="pt-14 h-lvh">{children}</main>
+        </ReduxProvider>
       </body>
     </html>
   );

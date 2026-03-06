@@ -1,21 +1,6 @@
 import Image from "next/image";
 import { THeaderAuthInfo } from "@/types/header-links";
-
-function getAvatarSrc(avatar?: string) {
-  if (!avatar) {
-    return "/images/placeholder-avatar.svg";
-  }
-
-  if (avatar.startsWith("http://") || avatar.startsWith("https://") || avatar.startsWith("/api/")) {
-    return avatar;
-  }
-
-  if (avatar.startsWith("/images/")) {
-    return `/api${avatar}`;
-  }
-
-  return "/images/placeholder-avatar.svg";
-}
+import { getAvatarSrc } from "@/lib/media/get-avatar-src";
 
 export default function HeaderAuthInfo({ avatar, name }: THeaderAuthInfo) {
   return (

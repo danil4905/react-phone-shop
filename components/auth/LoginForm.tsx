@@ -6,7 +6,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthCredentialsSchema, type AuthCredentials, type UserPublic } from "@repo/shared";
 import { ROUTES } from "@/config/routes";
-import { useAuthStore } from "@/store/auth";
+import { setCsrfToken, setUser } from "@/store/auth";
+import { useAppDispatch } from "@/store/hooks";
 import Button from "../ui/Button";
 
 type LoginSuccessResponse = {
@@ -29,8 +30,7 @@ const INPUT_CLASSNAME =
 
 export default function LoginForm() {
   const router = useRouter();
-  const setUser = useAuthStore((s) => s.setUser);
-  const setCsrfToken = useAuthStore((s) => s.setCsrfToken);
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -103,8 +103,8 @@ export default function LoginForm() {
         return;
       }
 
-      setUser(data.user);
-      setCsrfToken(data.csrfToken ?? null);
+      dispatch(setUser(data.user));
+      dispatch(setCsrfToken(data.csrfToken ?? null));
       router.push(ROUTES.home);
       router.refresh();
     } catch {
